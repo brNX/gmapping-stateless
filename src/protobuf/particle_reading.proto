@@ -1,0 +1,122 @@
+package gmapping_structs;
+
+option optimize_for = SPEED;
+
+message Workpackage{
+
+        required Particle particle = 1;
+        repeated double plainreading = 2 [packed=true];
+
+        //scanmatcher
+        required bool activeAreaComputed = 3;
+        required double angularOdometryReliability = 4;
+        required double enlargeStep = 5;
+        required double freeCellRatio = 6;
+        required double fullnessThreshold = 7 ;
+        required double gaussianSigma = 8;
+        required bool   generateMap = 9;
+        required uint32 initialBeamSkip = 10;
+        required int32 kernelSize = 11;
+        required double lasamplerange = 12;
+        required double lasamplestep = 13;
+        repeated double laserAngles = 14  [packed=true];
+        required uint32 laserBeams = 15;
+        required double laserMaxRange = 16;
+        required OrientedPoint laserPose = 17;
+        required double likelihoodSigma = 18;
+        required uint32 likelihoodSkip = 19;
+        required double linearOdometryReliability = 20;
+        required double llsamplerange = 21;
+        required double llsamplestep = 22;
+        required double optAngularDelta = 23;
+        required double optLinearDelta = 24;
+        required uint32 optRecursiveIterations=25;
+        required double usableRange = 26;
+
+        //gridslamprocessor
+        required double minimumScore = 27;
+}
+
+message WorkResponse{
+        required int32 id = 1;
+        repeated IntPoint m_activeArea = 2; //pointset
+        required double weight = 3;
+        required double weightSum = 4;
+        required OrientedPoint pose = 5;
+
+        optional double minx = 6;
+        optional double miny = 7;
+        optional double maxx = 8;
+        optional double maxy = 9;
+}
+
+
+message Particle{
+        required uint32 id = 1;
+	required double weightSum = 2;
+	required double weight = 3;
+
+	required ScanMatcherMap smap = 4;
+	required OrientedPoint pose = 5;
+}
+
+message ScanMatcherMap {
+	required double m_center_x = 1;
+	required double m_center_y = 2;
+	required double m_worldSizeX = 3;
+	required double m_worldSizeY = 4;
+	required double m_delta = 5;
+	required int32  m_mapSizeX = 6;
+	required int32  m_mapSizeY = 7;
+	required int32  m_sizeX2 = 8;
+	required int32  m_sizeY2 = 9;
+	required HierarchicalArray2D m_storage = 10;
+}
+
+message OrientedPoint{
+	required double x = 1;
+	required double y = 2;
+	required double theta = 3;
+}
+
+
+message PointAccumulator{
+	required float x = 1;
+	required float y = 2;
+	required int32 n = 3;
+	required int32 visits = 4;
+}
+
+message Array2D{
+	required int32 m_xsize = 1;
+	required int32 m_ysize = 2;
+	repeated innerType x = 4;
+
+	message innerType{
+		repeated PointAccumulator y = 1;
+	}
+}
+
+message Autoptr{
+        optional Array2D data = 1;
+}
+
+message HierarchicalArray2D{
+	required int32 m_patchMagnitude = 1;
+	required int32 m_patchSize = 2;
+        repeated innerType m_cells_x = 3;
+	required int32 m_xsize = 4;
+	required int32 m_ysize = 5;
+	repeated IntPoint m_activeArea = 6; //pointset
+
+        message innerType{
+                repeated Autoptr m_cells_y = 1;
+        }
+}
+
+message IntPoint{
+	required int32 x = 1;
+	required int32 y = 2;
+}
+
+
