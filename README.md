@@ -17,7 +17,7 @@ To install you can follow the BuildingPackages instructions on [http://wiki.ros.
 ##Setup
 
 #### Main Computer:
-Create a *Workers.txt* text file in the same folder where you are going to launch the GMapping node with the following Syntax:
+Create a *workers.txt* text file in the same folder where you are going to launch the GMapping node with the following Syntax:
 
 `tcp://RemoteWorkerIP:Port`   for each remote worker  
 `local` for each local Worker/Thread 
