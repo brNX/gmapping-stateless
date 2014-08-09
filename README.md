@@ -32,7 +32,7 @@ For the GMapping parameters see [http://wiki.ros.org/gmapping](http://wiki.ros.o
 
 #### Remote Workers:
 
-The remote workers need to run the **zmq\_reqrep\_worker** from the comand line using the following syntax : 
+The remote workers need to run the **zmq\_reqrep\_worker** from the command line using the following syntax : 
 
    `$ ./zmq_reqrep_worker  -a tcp://NetworkInterfaceIP:Port`
 
